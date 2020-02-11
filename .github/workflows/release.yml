@@ -18,11 +18,11 @@ jobs:
     - name: Copy Assets
       run: copy icon.ico target/release/icon.ico
     - name: Package as zip
-      uses: thedoctor0/zip-release@master
+      uses: Argannor/zip-action@master
       with:
-        filename: 'poe-minimizer-win-x64.zip'
-        path: 'target/release'
-        exclusions: '.fingerprint/** build/** deps/** examples/** incremental/** .cargo-lock *.d'
+        glob: 'icon.ico poe-minimizer.exe'
+        cwd: 'target/release'
+        target: 'target/release/poe-minimizer-win-x64.zip'
     - name: Calculate Hashes
       id: calc_hashes
       uses: Argannor/checksum-action@master
@@ -48,6 +48,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: .target/release/poe-minimizer-win-x64.zip
+        asset_path: ./target/release/poe-minimizer-win-x64.zip
         asset_name: ${{format('poe-minimizer-{0}-win-x64.zip', github.ref)}}
         asset_content_type: application/zip
