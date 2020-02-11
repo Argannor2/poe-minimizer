@@ -30,8 +30,6 @@ jobs:
         release_name: Release ${{ github.ref }}
         body: |
           Checksums:
-          - poe-minimizer.exe
-            - sha1: ${{steps.calc_hashes.outputs.targetreleasepoeminimizerexe-sha1}}
-            - sha256: ${{steps.calc_hashes.outputs.targetreleasepoeminimizerexe-sha1}}
+          ${{steps.calc_hashes.outputs.checksums}}
         draft: true
         prerelease: false
