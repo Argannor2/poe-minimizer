@@ -30,7 +30,7 @@ jobs:
       id: calc_hashes
       uses: Argannor/checksum-action@master
       with: 
-        glob: "target/release/*.exe"
+        glob: "target/release/*.zip target/release/*.exe icon.ico"
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -52,5 +52,5 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
         asset_path: .target/release/poe-minimizer-win-x64.zip
-        asset_name: poe-minimizer-win-x64.zip
+        asset_name: ${{format('poe-minimizer-{0}-win-x64.zip', github.ref)}}
         asset_content_type: application/zip
