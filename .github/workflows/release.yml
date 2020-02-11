@@ -16,10 +16,7 @@ jobs:
     - name: Build
       run: cargo build --release
     - name: Copy Assets
-      uses: canastro/copy-action@0.0.2
-      with:
-        source: "icon.ico"
-        target: "target/release/icon.ico"    
+      run: copy icon.ico target/release/icon.ico
     - name: Package as zip
       uses: thedoctor0/zip-release@master
       with:
